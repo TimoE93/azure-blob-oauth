@@ -77,19 +77,20 @@ function test123() {
   
     headers.append("Authorization", bearer);
     headers.append("x-ms-version", "2019-02-02");
-
-    let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    //change cors settings in azure portal. in the menu of the speicherkonto go to cors insert everywhere *, max aler 200
+    //let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     let targetUrl = "https://blobawsi.blob.core.windows.net/?comp=list";
   
     const options = {
         method: "GET",
         headers: {
           'Authorization': `Bearer ${accessToken}`,
-          "x-ms-version": "2019-02-02"
+          "x-ms-version": "2019-02-02",
+          "mode": "no-cors"
         }
     };
   
-      fetch(proxyUrl + targetUrl, options)
+      fetch(targetUrl, options)
           .then(response => {
             return response.text();
           }).then(data => {

@@ -17,27 +17,19 @@ function showWelcomeMessage(account) {
     signOutButton.classList.remove('d-none');
 }
 
-function updateUITest(){
-  console.log("12313123123");
+function updateUITest(data){
+  const email = document.createElement('text');
+    email.innerHTML = data;
+    profileDiv.appendChild(email);
 }
 
 function updateUI(data, endpoint) {
   console.log('Graph API responded at: ' + new Date().toString());
 
   if (endpoint === graphConfig.graphMeEndpoint) {
-    const title = document.createElement('p');
-    title.innerHTML = "<strong>Title: </strong>" + data.jobTitle;
     const email = document.createElement('p');
-    email.innerHTML = "<strong>Mail: </strong>" + data.mail;
-    const phone = document.createElement('p');
-    phone.innerHTML = "<strong>Phone: </strong>" + data.businessPhones[0];
-    const address = document.createElement('p');
-    address.innerHTML = "<strong>Location: </strong>" + data.officeLocation;
-    profileDiv.appendChild(title);
+    email.innerHTML = "<strong>Mail: </strong>" + data.userPrincipalName;
     profileDiv.appendChild(email);
-    profileDiv.appendChild(phone);
-    profileDiv.appendChild(address);
-    
   } else if (endpoint === graphConfig.graphMailEndpoint) {
       if (data.value.length < 1) {
         alert("Your mailbox is empty!")

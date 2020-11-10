@@ -63,13 +63,12 @@ function readMail() {
   }
 }
 
-function test123() {
-  console.log("Test123");
-  myMSALObj.acquireTokenSilent(accessTokenRequest).then(function(accessTokenResponse) {
+function getBlobContainer() {
+  myMSALObj.acquireTokenPopup(accessTokenRequest).then(function(accessTokenResponse) {
     // Acquire token silent success
     // Call API with token
     let accessToken = accessTokenResponse.accessToken;
-    console.log(accessToken);
+    console.log(`ACCESSTOKEN: ${accessToken}`);
 
   try {
     const headers = new Headers();
@@ -95,6 +94,7 @@ function test123() {
             return response.text();
           }).then(data => {
             console.log(data);
+            updateUITest(data);
           });
   } catch(err) {
     console.log(err);

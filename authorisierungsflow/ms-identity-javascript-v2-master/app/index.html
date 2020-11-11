@@ -3,36 +3,38 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Azure Blob Oauth</title>
+    <title>Quickstart | MSAL.JS Vanilla JavaScript SPA</title>
     <link rel="SHORTCUT ICON" href="./favicon.svg" type="image/x-icon">
     
     <!-- msal.min.js can be used in the place of msal.js; included msal.js to make debug easy -->
-    <script type="text/javascript" src="https://alcdn.msauth.net/lib/1.4.0/js/msal.js" integrity="sha384-DqrejB/00ccJc4ufFWc+TA3ImOruMihWCj6Wu9hEzRUNdqt4180qlzT0mFa6/Zp2" crossorigin="anonymous"></script>
-    
+    <script src="https://alcdn.msauth.net/browser/2.1.0/js/msal-browser.js" integrity="sha384-M9bRB06LdiYadS+F9rPQnntFCYR3UJvtb2Vr4Tmhw9WBwWUfxH8VDRAFKNn3VTc/" crossorigin="anonymous"></script>
+
     <!-- msal.js with a fallback to backup CDN -->
     <script type="text/javascript">
-      if(typeof Msal === 'undefined')document.write(unescape("%3Cscript src='https://alcdn.msftauth.net/lib/1.4.0/js/msal.js' type='text/javascript' %3E%3C/script%3E"));
+      if(typeof Msal === 'undefined')document.write(unescape("%3Cscript src='https://alcdn.msftauth.net/browser/2.1.0/js/msal-browser.js' type='text/javascript' crossorigin='anonymous' %3E%3C/script%3E"));
     </script>
 
     <!-- adding Bootstrap 4 for UI components  -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="SHORTCUT ICON" href="https://c.s-microsoft.com/favicon.ico?v2" type="image/x-icon">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <a class="navbar-brand" href="/">MS Identity Platform</a>
       <div class="btn-group ml-auto dropleft">
-        <button type="button" id="signIn" class="btn btn-secondary" onclick="signIn()">Sign In</button>
-        <button type="button" id="signOut" class="btn btn-success d-none" onclick="signOut()">Sign Out</button>
-    </div>
+          <button type="button" id="SignIn" class="btn btn-secondary" onclick="signIn()">
+            Sign In
+          </button>
+      </div>
     </nav>
     <br>
-    <h5 class="card-header text-center">Azure Oauth Implicit Flow</h5>
+    <h5 class="card-header text-center">Azure Oauth Authorization Code Flow</h5>
     <br>
     <div class="row" style="margin:auto" >
-    <div id="card-div" class="col-md-3 d-none">
+    <div id="card-div" class="col-md-3" style="display:none">
     <div class="card text-center">
       <div class="card-body">
-        <h5 class="card-title" id="welcomeMessage">Please sign-in to see your profile and read your mails</h5>
+        <h5 class="card-title" id="WelcomeMessage">Please sign-in to see your profile and read your mails</h5>
         <div id="profile-div"></div>
         <br>
         <br>
@@ -41,7 +43,6 @@
         <br>
       </div>
     </div>
-    <br>
     <button class="btn btn-primary" id="readMail" value="blobawsi" onclick="getBlobContainer('blobawsi')">Log BlobAwsi Container</button>
     <br>
     <br>
@@ -71,8 +72,8 @@
     <script type="text/javascript" src="./graphConfig.js"></script>
     <script type="text/javascript" src="./ui.js"></script>
     
-    <!-- replace next line with authRedirect.js if you would like to use the redirect flow -->
     <!-- <script type="text/javascript" src="./authRedirect.js"></script>   -->
+    <!-- uncomment the above line and comment the line below if you would like to use the redirect flow -->
     <script type="text/javascript" src="./authPopup.js"></script>
     <script type="text/javascript" src="./graph.js"></script>
   </body>

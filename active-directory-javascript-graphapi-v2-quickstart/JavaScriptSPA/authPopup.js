@@ -63,7 +63,7 @@ function readMail() {
   }
 }
 
-function getBlobContainer() {
+function getBlobContainer(storageName) {
   myMSALObj.acquireTokenPopup(accessTokenRequest).then(function(accessTokenResponse) {
     // Acquire token silent success
     // Call API with token
@@ -78,7 +78,7 @@ function getBlobContainer() {
     headers.append("x-ms-version", "2019-02-02");
     //change cors settings in azure portal. in the menu of the speicherkonto go to cors insert everywhere *, max aler 200
     //let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    let targetUrl = "https://blobawsi.blob.core.windows.net/?comp=list";
+    let targetUrl = `https://${storageName}.blob.core.windows.net/?comp=list`;
   
     const options = {
         method: "GET",
@@ -94,7 +94,6 @@ function getBlobContainer() {
             return response.text();
           }).then(data => {
             console.log(data);
-            updateUITest(data);
           });
   } catch(err) {
     console.log(err);

@@ -28,7 +28,7 @@ function updateUI(data, endpoint) {
 
   if (endpoint === graphConfig.graphMeEndpoint) {
     const email = document.createElement('p');
-    email.innerHTML = "<strong>Mail: </strong>" + data.userPrincipalName;
+    email.innerHTML = "<strong>UserPrincipalName: </strong>" + data.userPrincipalName;
     profileDiv.appendChild(email);
   } else if (endpoint === graphConfig.graphMailEndpoint) {
       if (data.value.length < 1) {

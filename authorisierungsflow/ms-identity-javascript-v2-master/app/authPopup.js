@@ -128,4 +128,37 @@ function getBlobContainer(storageName){
     });
 }
 
+function uploadBlob(storageName){
+    getTokenPopup(accessTokenRequest).then(response => {
+        let accessToken = response.accessToken;
+
+        const headers = new Headers();
+        const bearer = `Bearer ${accessToken}`;
+        var d = new Date();
+        let dst = d.toUTCString();
+        headers.append("Authorization", bearer);
+        headers.append("x-ms-version", "2019-02-02");
+        headers.append("x-ms-date", dst);
+        headers.append("mode", "no-cors");
+        headers.append("Content-Length", 0);
+        headers.append("x-ms-blob-type", "BlockBlob");
+        const options = {
+            method: "PUT",
+            headers: headers
+        };
+
+        let targetUrl = `https://${storageName}.blob.core.windows.net/videos/blob_${dst}`;
+      fetch(targetUrl, options)
+          .then(response => {
+            return response;
+          }).then(data => {
+            if ( data.status == 201 ) {
+                console.log(`Blob: blob_${dst} uploaded`);
+            }
+          });
+    }).catch(error => {
+        console.error(error);
+    });
+}
+
 loadPage();

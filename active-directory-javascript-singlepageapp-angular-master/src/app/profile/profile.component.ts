@@ -89,4 +89,47 @@ export class ProfileComponent implements OnInit {
       } 
     });
   }
+
+  //this.getProfile(); so the user does only need to authorize on test button. in app-routing the canActivate: [MsalGuard] needs
+  //also be removed, otherwise the user needs to authorize for the whole path 
+  getContainerNoMsalGuard() {
+    this.authService.loginPopup().then(() => {
+      console.log("getContainer");
+      this.authService.acquireTokenPopup({
+        scopes: ["https://storage.azure.com/user_impersonation"]
+      })
+      .then((accessTokenResponse) => {
+        let accessToken = accessTokenResponse.accessToken;
+        console.log(`ACCESSTOKEN: ${accessToken}`);
+        try {
+          //change cors settings in azure portal. in the menu of the speicherkonto go to cors insert everywhere *, max aler 200
+          //let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+          let targetUrl = `https://timoblob.blob.core.windows.net/?comp=list`;
+        
+          const headers = new Headers();
+          const bearer = `Bearer ${accessToken}`;
+          var d = new Date();
+          let dst = d.toUTCString();
+          headers.append("Authorization", bearer);
+          headers.append("x-ms-version", "2019-02-02");
+          headers.append("x-ms-date", dst);
+          headers.append("mode", "no-cors")
+      
+          const options = {
+              method: "GET",
+              headers: headers
+          };
+        
+            fetch(targetUrl, options)
+                .then(response => {
+                  return response.text();
+                }).then(data => {
+                  console.log(data);
+                });
+        } catch(err) {
+          console.log(err);
+        } 
+      });
+    });
+  }
 }
